@@ -13,7 +13,7 @@ select (e.firstName || ' ' || e.lastName) as SoldBy
  join employee as e on o.EmployeeId = e.id 
  join customer as c on o.CustomerId = c.id; 
 
--- joining orders to order detail and product id
+-- joining orders to order detail to product to get information from all tables
 select o.id as OrderNumber
     , p.ProductName
     , od.Quantity
@@ -24,6 +24,7 @@ join orderdetail as od
     on o.id = od.OrderId
 join product as p
     on od.productId = p.id;
+
 
 -- line 33 creates a column with the total of order detail quantity * product unit price
 select o.id as OrderNumber
@@ -38,7 +39,7 @@ join Product as p
     on od.ProductId = p.id;
 
 
--- joining 
+-- look mah, four tables joined!
 select o.id as OrderNumber
     , p.ProductName
     , od.Quantity
@@ -52,3 +53,13 @@ join Product as p
     on od.ProductId = p.id
 join Supplier as s
     on s.id = p.SupplierId;
+
+-- all the customer, even if they have no orders
+select c.id, c.companyName as Customer, o.Id 
+from customer as c
+left join [order] as o on c.id = o.customerId
+order by c.id;
+
+select * from [order]
+-- delete from [order]
+where customerId = 'ALFKI';

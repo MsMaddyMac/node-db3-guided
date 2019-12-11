@@ -84,6 +84,7 @@ router.get('/:id/posts', (req, res) => {
     res.status(200).json(posts);
   })
   .catch(err => {
+    console.log('Error getting posts.', err);
     res.status(500).json({ error: 'Error getting posts.' })
   })
 })
